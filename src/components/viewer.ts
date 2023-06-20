@@ -8,7 +8,6 @@ import {
   Texture,
   NearestFilter,
   LinearFilter,
-  RGBFormat,
   RGBAFormat,
   SRGBColorSpace,
 } from './three'
