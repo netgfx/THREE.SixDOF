@@ -116,7 +116,9 @@ export default class Viewer extends Object3D {
   private setDefaultTextureProps(texture: Texture): Texture {
     texture.minFilter = NearestFilter
     texture.magFilter = LinearFilter
-    texture.format = RGBFormat
+    texture.format = RGBAFormat
+    texture.encoding = sRGBEncoding;
+    texture.type = UnsignedByteType;
     texture.generateMipmaps = false
     return texture
   }
