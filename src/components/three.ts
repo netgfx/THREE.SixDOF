@@ -15,4 +15,6 @@ export {
   NearestFilter,
   LinearFilter,
   RGBFormat,
+  RGBAFormat,
+  SRGBColorSpace,
 } from 'three'

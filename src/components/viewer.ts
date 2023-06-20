@@ -9,6 +9,8 @@ import {
   NearestFilter,
   LinearFilter,
   RGBFormat,
+  RGBAFormat,
+  SRGBColorSpace,
 } from './three'
 
 // @ts-ignore
@@ -117,8 +119,7 @@ export default class Viewer extends Object3D {
     texture.minFilter = NearestFilter
     texture.magFilter = LinearFilter
     texture.format = RGBAFormat
-    texture.encoding = sRGBEncoding;
-    texture.type = UnsignedByteType;
+    texture.colorSpace = SRGBColorSpace
     texture.generateMipmaps = false
     return texture
   }
