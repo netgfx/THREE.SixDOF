@@ -11,7 +11,8 @@
     "prettier": "prettier --write \"src/**/*.{js,ts}\"",
     "build:js": "rollup -c",
     "build:types": "tsc --declaration --emitDeclarationOnly",
-    "build": "yarn build:types && yarn build:js",
+    "build": "yarn build:js",
+    "build-old":"yarn build:types && yarn build:js",
     "build:watch": "rollup -c --watch",
     "postinstall": "yarn build",
     "examples": "http-server ./"
