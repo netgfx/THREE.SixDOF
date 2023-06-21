@@ -24,7 +24,7 @@
     "url": "git+https://github.com/juniorxsound/THREE.SixDOF"
   },
   "peerDependencies": {
-    "three": "^0.110.0"
+    "three": "^0.153.0"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
