@@ -1,8 +1,4 @@
-import { Object3D, ShaderMaterial, BackSide, SphereBufferGeometry, NearestFilter, LinearFilter, RGBAFormat, SRGBColorSpace, Mesh, Points } from 'three';
-
-/**
- * A small wrapper for THREE imports so rollup tree-shakes only the parts we need better
- */
+import { Object3D, ShaderMaterial, BackSide, SphereBufferGeometry, NearestFilter, LinearFilter, RGBAFormat, SRGBColorSpace, Points, Mesh } from 'three';
 
 var frag = "#define GLSLIFY 1\nvec3 getDepth(sampler2D depth,vec2 uvs){return texture2D(depth,uvs).rgb;}vec3 getDepthFromBottomHalf(sampler2D tex,vec2 uvs){vec2 lower_half_uvs=vec2(uvs.x,uvs.y*0.5);return texture2D(tex,lower_half_uvs).rgb;}vec3 getColorFromUpperHalf(sampler2D tex,vec2 uvs){vec2 upper_half_uvs=vec2(uvs.x,(uvs.y*0.5)+0.5);return texture2D(tex,upper_half_uvs).rgb;}uniform sampler2D colorTexture;uniform sampler2D depthTexture;uniform float debugDepth;uniform float opacity;varying vec2 vUv;vec3 depth;vec3 color;void main(){\n#ifdef TOP_BOTTOM\ndepth=getDepthFromBottomHalf(colorTexture,vUv);color=getColorFromUpperHalf(colorTexture,vUv);\n#endif\n#ifdef SEPERATE\ndepth=getDepth(depthTexture,vUv);color=texture2D(colorTexture,vUv).rgb;\n#endif\nvec3 depthColorMixer=mix(color,depth,debugDepth);gl_FragColor=vec4(depthColorMixer,opacity);}"; // eslint-disable-line
 
