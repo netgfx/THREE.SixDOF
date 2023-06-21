@@ -1,12 +1,13 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist",
-        "target": "es6",
-        "sourceMap": true,
-        "inlineSources": true,
-        "moduleResolution": "Node"
-    },
-    "include": [
-        "./src/**/*"
-    ],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es6",
+    "sourceMap": true,
+    "inlineSources": true,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "allowJs": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
 }

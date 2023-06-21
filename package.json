@@ -18,10 +18,10 @@
   },
   "author": "",
   "license": "MIT",
-  "homepage": "https://github.com/juniorxsound/THREE.SixDOF",
+  "homepage": "https://github.com/netgfx/THREE.SixDOF#master",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/juniorxsound/THREE.SixDOF"
+    "url": "git+https://github.com/netgfx/THREE.SixDOF"
   },
   "peerDependencies": {
     "three": "^0.153.0"
@@ -53,6 +53,6 @@
     "rollup-plugin-terser": "5.0.0",
     "terser": "4.0.0",
     "three": "^0.153.0",
-    "typescript": "^3.6.0"
+    "typescript": "^4.9.5"
   }
 }
