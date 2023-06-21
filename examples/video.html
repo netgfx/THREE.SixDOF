@@ -1,160 +1,217 @@
 <html>
-
-<head>
+  <head>
     <title>THREE.6DOF - Video Viewer Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
     <style>
-        body {
-            background: #000;
-            color: #fff;
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-            font-family: georgia;
-            text-align: center;
-        }
+      body {
+        background: #000;
+        color: #fff;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        font-family: georgia;
+        text-align: center;
+      }
 
-        a {
-            color: skyblue;
-            text-decoration: none
-        }
+      a {
+        color: skyblue;
+        text-decoration: none;
+      }
 
-        video {
-            display: none;
-        }
+      video {
+        display: none;
+      }
 
-        #info {
-            position: absolute;
-            top: 15px;
-            width: 100%;
-        }
+      #info {
+        position: absolute;
+        top: 15px;
+        width: 100%;
+      }
 
-        #info_wrapper {
-            background: rgba(0, 0, 0, 0.7);
-        }
+      #info_wrapper {
+        background: rgba(0, 0, 0, 0.7);
+      }
     </style>
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="public/images/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="public/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="public/images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="public/site.webmanifest">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="public/images/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="public/images/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="public/images/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="public/site.webmanifest" />
 
     <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"
-        integrity="sha256-Wua0LsQkGDEeIkbmBNjj9wcThJh5uCD6R8+5YQhXveQ=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"
-        integrity="sha256-HJ7j+71YYw6Kcs8THwQV9lXmPOcR0eXlg7n8KRTZsyA=" crossorigin="anonymous"></script>
-    <script src="./public/js/WebVR.js"></script>
-    <script src="./public/js/GUIHelper.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/three@0.147/build/three.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"
+      integrity="sha256-HJ7j+71YYw6Kcs8THwQV9lXmPOcR0eXlg7n8KRTZsyA="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.147/examples/js/controls/OrbitControls.js"></script>
+
+    <script src="https://gwcjylrsyylsuacdrnov.supabase.co/storage/v1/object/public/scripts/WebXR.js"></script>
+    <!-- <script src="./public/js/GUIHelper.js"></script> -->
 
     <!-- THREE-6DOF -->
-    <script src="../dist/three-6dof.js"></script>
-</head>
+    <script src="https://gwcjylrsyylsuacdrnov.supabase.co/storage/v1/object/public/scripts/three-6dof.js"></script>
+  </head>
 
-<body>
-
+  <body>
     <div id="info">
-        <span id="info_wrapper">
-            <a href="https://github.com/juniorxsound/THREE.SixDOF" target="_blank" rel="noopener">THREE.6DOF</a> -
-            Video Viewer Example<br /> Written
-            by <a href="https://orfleisher.com">@juniorxsound</a> and <a
-                href="https://github.com/mellinger">@mellinger</a> <br /><br />
-        </span>
+      <span id="info_wrapper">
+        <a
+          href="https://github.com/juniorxsound/THREE.SixDOF"
+          target="_blank"
+          rel="noopener"
+          >THREE.6DOF</a
+        >
+        - Video Viewer Example<br />
+        Written by <a href="https://orfleisher.com">@juniorxsound</a> and
+        <a href="https://github.com/mellinger">@mellinger</a> <br /><br />
+      </span>
     </div>
 
-    <video id="sixdof" muted autoplay loop playsinline src="./public/videos/kandao.mp4" />
+    <video
+      id="sixdof"
+      muted
+      autoplay
+      loop
+      crossorigin="Anonymous"
+      playsinline
+      src="https://gwcjylrsyylsuacdrnov.supabase.co/storage/v1/object/public/assets/kandao.mp4"
+    />
 
-    <script>
-        'use strict';
-        // debug GUI
-        var gui = new dat.GUI();
+    <script type="module">
+      'use strict'
+      // debug GUI
+      var gui = new dat.GUI()
 
-        // Keep track of time
-        var clock = new THREE.Clock();
+      // Keep track of time
+      var clock = new THREE.Clock()
 
-        // Create the scene, renderer and camera
-        var scene = new THREE.Scene();
+      // Create the scene, renderer and camera
+      var scene = new THREE.Scene()
 
-        var renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.vr.enabled = true;
-        document.body.appendChild(renderer.domElement);
-        document.body.appendChild(THREE.WEBVR.createButton(renderer));
+      var renderer = new THREE.WebGLRenderer({ antialias: true })
 
-        var camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 1000);
-        var cameraDolly = new THREE.Object3D(); // We use a camera dolly since WebVR/XR will override camera transform
-        cameraDolly.position.y = -1.7;
-        cameraDolly.add(camera);
-        scene.add(cameraDolly);
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      //renderer.vr.enabled = true
+      renderer.xr.enabled = true
+      renderer.xr.setReferenceSpaceType('local')
+      document.body.appendChild(renderer.domElement)
+      document.body.appendChild(THREE.WEBVR.createButton(renderer))
 
-        // Get the video element and create a texture
-        var videoElm = document.getElementById('sixdof');
-        var videoTex = new THREE.VideoTexture(videoElm);
+      var camera = new THREE.PerspectiveCamera(
+        90,
+        window.innerWidth / window.innerHeight,
+        0.01,
+        1000,
+      )
+      camera.position.z = 1
 
-        // Add play button to GUI
-        gui.add({ 'playVideo': () => { } }, 'playVideo')
-            .name('Play Video')
-            .onChange(() => {
-                videoElm.play();
-            })
+      // var cameraDolly = new THREE.Object3D() // We use a camera dolly since WebVR/XR will override camera transform
+      // cameraDolly.position.y = -1.7
+      // cameraDolly.add(camera)
+      // scene.add(cameraDolly)
 
-        // Load the textures and store them
-        var sixDofViewer = new SixDOF.Viewer(videoTex, null, {
-            type: SixDOF.TextureType.TOP_BOTTOM
-        });
-        scene.add(sixDofViewer);
+      // Get the video element and create a texture
+      var videoElm = document.getElementById('sixdof')
+      var videoTex = new THREE.VideoTexture(videoElm)
 
-        // Create the debug GUI and add some debug params
-        var shaderParams = gui.addFolder('Shader');
-        shaderParams.add(sixDofViewer, 'displacement', 0, 7).name('Displacement');
-        shaderParams.add(sixDofViewer, 'opacity', 0, 1).name('Opacity');
-        shaderParams.add(sixDofViewer, 'pointSize', 0, 10).name('Point Size');
-        shaderParams.add({ 'debugDepth': false }, 'debugDepth')
-            .name('Debug Depth')
-            .onChange(val => {
-                sixDofViewer.toggleDepthDebug(val);
-            });
-        shaderParams.add({
-            'changeStyle': () => { }
-        }, 'changeStyle', {
-            'Mesh': SixDOF.Style[SixDOF.Style.MESH],
-            'Wireframe': SixDOF.Style[SixDOF.Style.WIRE],
-            'Pointcloud': SixDOF.Style[SixDOF.Style.POINTS]
+      // Add play button to GUI
+      gui
+        .add({ playVideo: () => {} }, 'playVideo')
+        .name('Play Video')
+        .onChange(() => {
+          videoElm.play()
         })
-            .name('Rendering Style')
-            .onChange(val => {
-                scene.remove(sixDofViewer);
-                sixDofViewer = new SixDOF.Viewer(videoTex, null, {
-                    'type': SixDOF.TextureType.TOP_BOTTOM,
-                    'style': SixDOF.Style[val]
-                });
-                scene.add(sixDofViewer);
-            });
 
-        shaderParams.open();
+      // Load the textures and store them
+      var sixDofViewer = new SixDOF.Viewer(videoTex, null, {
+        type: SixDOF.TextureType.TOP_BOTTOM,
+      })
+      scene.add(sixDofViewer)
+      const controls = new THREE.OrbitControls(camera, renderer.domElement)
+      // Create the debug GUI and add some debug params
+      var shaderParams = gui.addFolder('Shader')
+      shaderParams.add(sixDofViewer, 'displacement', 0, 7).name('Displacement')
+      shaderParams.add(sixDofViewer, 'opacity', 0, 1).name('Opacity')
+      shaderParams.add(sixDofViewer, 'pointSize', 0, 10).name('Point Size')
+      shaderParams
+        .add({ debugDepth: false }, 'debugDepth')
+        .name('Debug Depth')
+        .onChange(val => {
+          sixDofViewer.toggleDepthDebug(val)
+        })
+      shaderParams
+        .add(
+          {
+            changeStyle: () => {},
+          },
+          'changeStyle',
+          {
+            Mesh: SixDOF.Style[SixDOF.Style.MESH],
+            Wireframe: SixDOF.Style[SixDOF.Style.WIRE],
+            Pointcloud: SixDOF.Style[SixDOF.Style.POINTS],
+          },
+        )
+        .name('Rendering Style')
+        .onChange(val => {
+          scene.remove(sixDofViewer)
+          sixDofViewer = new SixDOF.Viewer(videoTex, null, {
+            type: SixDOF.TextureType.TOP_BOTTOM,
+            style: SixDOF.Style[val],
+          })
+          scene.add(sixDofViewer)
+        })
 
-        renderer.setAnimationLoop(() => {
+      shaderParams.open()
 
-            // If we are not in VR spin the camera a little
-            if (!renderer.vr.isPresenting()) {
-                var time = clock.getElapsedTime();
+      renderer.setAnimationLoop(() => {
+        // If we are not in VR spin the camera a little
+        if (!renderer.xr.isPresenting) {
+          controls.addEventListener('change', () => {
+            renderer.render(scene, camera)
+          })
+          controls.update()
+        }
+        //   var time = clock.getElapsedTime()
 
-                cameraDolly.position.x = Math.sin(time) * 0.2;
-                cameraDolly.position.z = Math.cos(time) * 0.2;
-                cameraDolly.rotation.y += 0.001;
-            }
+        //   cameraDolly.position.x = Math.sin(time) * 0.2
+        //   cameraDolly.position.z = Math.cos(time) * 0.2
+        //   cameraDolly.rotation.y += 0.001
+        // }
 
-            renderer.render(scene, camera);
-        });
+        renderer.render(scene, camera)
+      })
 
-        window.addEventListener('resize', ev => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+      window.addEventListener('resize', ev => {
+        camera.aspect = window.innerWidth / window.innerHeight
+        camera.updateProjectionMatrix()
+
+        controls.update()
+        renderer.setSize(window.innerWidth, window.innerHeight)
+      })
     </script>
-</body>
-
+  </body>
 </html>
