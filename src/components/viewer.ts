@@ -4,7 +4,7 @@ import {
   BackSide,
   Mesh,
   Points,
-  SphereBufferGeometry,
+  SphereGeometry,
   Texture,
   NearestFilter,
   LinearFilter,
@@ -24,7 +24,7 @@ export default class Viewer extends Object3D {
   /** Default props if not provided */
   private props: Props = new Props()
 
-  private static geometry: SphereBufferGeometry
+  private static geometry: SphereGeometry
   private material: ShaderMaterial = new ShaderMaterial({
     uniforms: Uniforms,
     vertexShader: vert,
@@ -75,8 +75,8 @@ export default class Viewer extends Object3D {
   private createSphereGeometry(
     radius: number,
     meshDensity: MeshDensity,
-  ): SphereBufferGeometry {
-    return new SphereBufferGeometry(radius, meshDensity, meshDensity)
+  ): SphereGeometry {
+    return new SphereGeometry(radius, meshDensity, meshDensity)
   }
 
   /** Internal util to set viewer props from config object */
@@ -125,7 +125,7 @@ export default class Viewer extends Object3D {
 
   /** An internal util to create the Mesh Object3D */
   private createMesh(
-    geo: SphereBufferGeometry,
+    geo: SphereGeometry,
     mat: ShaderMaterial,
     style: Style,
   ): Object3D {

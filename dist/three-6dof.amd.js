@@ -110,7 +110,7 @@ define(['exports', 'three'], (function (exports, three) { 'use strict';
 
       /** Internal util to create buffer geometry */
       createSphereGeometry(radius, meshDensity) {
-        return new three.SphereBufferGeometry(radius, meshDensity, meshDensity);
+        return new three.SphereGeometry(radius, meshDensity, meshDensity);
       }
 
       /** Internal util to set viewer props from config object */

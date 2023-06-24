@@ -10,7 +10,7 @@ export {
   BackSide,
   Mesh,
   Points,
-  SphereBufferGeometry,
+  SphereGeometry,
   Texture,
   NearestFilter,
   LinearFilter,
